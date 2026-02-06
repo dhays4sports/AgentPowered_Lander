@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AgentPowered — Execution-grade infrastructure for agent systems</title>
+  <meta name="description" content="AgentPowered is an execution-grade brand layer behind domain-native agent portals and diagnostic systems." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://agentpowered.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AgentPowered" />
+  <meta property="og:description" content="Execution-grade infrastructure for agent systems." />
+  <meta property="og:url" content="https://agentpowered.com/" />
+  <meta property="og:image" content="https://agentpowered.com/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <style>
+    :root{
+      /* AgentPowered — Color Tokens v1.0 (locked) */
+      --ap-bg:#0B0C0F;
+      --ap-panel:#10131A;
+      --ap-panel-2:#0E1117;
+
+      --ap-ink:#F2F4F8;
+      --ap-muted:rgba(242,244,248,.74);
+      --ap-muted2:rgba(242,244,248,.58);
+
+      --ap-line:rgba(242,244,248,.10);
+      --ap-line-strong:rgba(242,244,248,.16);
+
+      --ap-accent:#7A4CFF;
+      --ap-accent-soft:rgba(122,76,255,.14);
+      --ap-accent-glow:rgba(122,76,255,.22);
+
+      --ap-shadow:0 18px 60px rgba(0,0,0,.55);
+
+      --radius:18px;
+      --radiusSm:14px;
+      --max:980px;
+
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --track:.14em;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html, body{ width:100%; overflow-x:hidden; }
+    body{
+      background:
+        radial-gradient(1100px 600px at 50% 0%, var(--ap-accent-soft), transparent 60%),
+        radial-gradient(900px 520px at 12% 32%, rgba(122,76,255,.10), transparent 55%),
+        var(--ap-bg);
+      color: var(--ap-ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      padding: 28px 20px 64px;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ opacity:.92; }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 10px 6px 18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      letter-spacing:-0.01em;
+      font-weight:650;
+      white-space:nowrap;
+    }
+
+    .sig{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--ap-accent);
+      box-shadow: 0 0 0 4px var(--ap-accent-soft);
+      transform: translateY(-1px);
+    }
+
+    nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .navlink{
+      font-size:12px;
+      letter-spacing: var(--track);
+      text-transform: uppercase;
+      color: var(--ap-muted2);
+      padding: 10px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .navlink:hover{ border-color: var(--ap-line); color: var(--ap-muted); }
+
+    .hero{
+      margin-top: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border: 1px solid var(--ap-line);
+      border-radius: var(--radius);
+      box-shadow: var(--ap-shadow);
+      padding: 30px 22px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* subtle “execution grid” */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(242,244,248,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(242,244,248,.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity:.10;
+      mask-image: radial-gradient(closest-side at 50% 18%, black 0%, transparent 70%);
+    }
+
+    .kicker{
+      font-size:12px;
+      letter-spacing: var(--track);
+      text-transform: uppercase;
+      color: var(--ap-muted2);
+      margin-bottom: 10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+
+    .kdot{
+      width:7px; height:7px; border-radius:999px;
+      background: rgba(122,76,255,.95);
+      box-shadow: 0 0 0 3px var(--ap-accent-soft);
+    }
+
+    h1{
+      font-size: clamp(28px, 4.2vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      max-width: 34ch;
+      position:relative;
+      z-index:1;
+    }
+
+    .lede{
+      color: var(--ap-muted);
+      line-height: 1.75;
+      font-size: 15px;
+      max-width: 86ch;
+      position:relative;
+      z-index:1;
+    }
+
+    .rail{
+      margin-top: 18px;
+      border-top: 1px solid var(--ap-line);
+      padding-top: 18px;
+      display:grid;
+      grid-template-columns: 1.06fr .94fr;
+      gap: 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .panel{
+      border: 1px solid rgba(242,244,248,.10);
+      border-radius: var(--radiusSm);
+      background: rgba(255,255,255,.02);
+      padding: 16px;
+    }
+
+    .panelTitle{
+      font-size:12px;
+      letter-spacing: var(--track);
+      text-transform: uppercase;
+      color: var(--ap-muted2);
+      margin-bottom: 12px;
+    }
+
+    .bullets{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ap-muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+    .bullets li{ margin-bottom: 8px; }
+    .bullets li:last-child{ margin-bottom: 0; }
+
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tile{
+      border: 1px solid rgba(242,244,248,.10);
+      border-radius: 14px;
+      padding: 12px 12px 11px;
+      background: rgba(255,255,255,.02);
+      min-height: 84px;
+    }
+    .tile:hover{ border-color: rgba(122,76,255,.28); }
+
+    .tileName{
+      font-weight: 650;
+      letter-spacing: .01em;
+      font-size: 13.5px;
+      margin-bottom: 6px;
+    }
+
+    .tileMeta{
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--ap-muted);
+    }
+
+    .badge{
+      margin-top: 10px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ap-muted2);
+    }
+    .badgeDot{
+      width:7px; height:7px; border-radius:999px;
+      background: rgba(122,76,255,.95);
+      box-shadow: 0 0 0 3px var(--ap-accent-soft);
+    }
+
+    .side p{
+      color: var(--ap-muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(242,244,248,.14);
+      background: rgba(255,255,255,.02);
+      color: var(--ap-ink);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{ border-color: rgba(122,76,255,.35); }
+    .btn.primary{
+      border-color: rgba(122,76,255,.38);
+      background: var(--ap-accent-soft);
+    }
+
+    /* Intake */
+    .intake{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .intake input, .intake textarea, .intake select{
+      width:100%;
+      border-radius: 12px;
+      border: 1px solid rgba(242,244,248,.14);
+      background: rgba(255,255,255,.02);
+      color: var(--ap-ink);
+      padding: 11px 12px;
+      font: inherit;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .intake textarea{ min-height: 90px; resize: vertical; }
+    .intake input:focus,
+    .intake textarea:focus,
+    .intake select:focus{
+      border-color: rgba(122,76,255,.45);
+      box-shadow: 0 0 0 3px var(--ap-accent-soft);
+    }
+
+    .fineprint{
+      margin-top: 12px;
+      color: var(--ap-muted2);
+      font-size: 12px;
+      line-height: 1.7;
+      max-width: 90ch;
+    }
+
+    .divider{
+      height:1px;
+      background: var(--ap-line);
+      margin: 14px 0;
+    }
+
+    .status{
+      color: var(--ap-muted2);
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 18px;
+    }
+
+    footer{
+      margin-top: 14px;
+      text-align:center;
+      color: var(--ap-muted2);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      padding: 14px 0 0;
+      border-top: 1px solid rgba(242,244,248,.10);
+    }
+
+    @media (max-width: 860px){
+      .rail{ grid-template-columns: 1fr; }
+      .tiles{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px){
+      body{ padding: 22px 16px 54px; }
+      .hero{ padding: 26px 18px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/" aria-label="AgentPowered home">
+        <span class="sig" aria-hidden="true"></span>
+        <span>AgentPowered</span>
+      </a>
+
+      <nav aria-label="AgentPowered navigation">
+        <!-- Keep minimal; one-screen site -->
+        <a class="navlink" href="https://chatsurface.com/" rel="noopener">ChatSurface</a>
+        <a class="navlink" href="https://domainelevation.com/" rel="noopener">DomainElevation</a>
+        <a class="navlink" href="mailto:contact@assetsnow.com">Contact</a>
+      </nav>
+    </header>
+
+    <main class="hero" role="main">
+      <div class="kicker">
+        <span class="kdot" aria-hidden="true"></span>
+        <span>Execution-grade infrastructure for agent systems</span>
+      </div>
+
+      <h1>Operate the agent layer with discipline: routing, policy, memory, and audit.</h1>
+
+      <p class="lede">
+        AgentPowered is the operator brand behind domain-native portals and structured evaluation systems.
+        It focuses on <strong>runtime standards</strong>, <strong>partner agent governance</strong>, and <strong>quiet reliability</strong> — not hype.
+      </p>
+
+      <div class="rail" aria-label="Panels">
+        <!-- LEFT -->
+        <section class="panel" aria-label="What we do">
+          <div class="panelTitle">What AgentPowered is</div>
+          <ul class="bullets">
+            <li>A governance + runtime spine for agent portals (routing, permissions, escalation).</li>
+            <li>Structured assessment frameworks that guide review without leaking mechanics.</li>
+            <li>Partner onboarding for third-party agents inside a station (qualification, policy, rev-share).</li>
+          </ul>
+
+          <div class="divider" role="separator" aria-hidden="true"></div>
+
+          <div class="panelTitle">Active surfaces</div>
+          <div class="tiles" aria-label="Portfolio tiles">
+            <a class="tile" href="https://chatsurface.com/" rel="noopener" aria-label="ChatSurface">
+              <div class="tileName">ChatSurface</div>
+              <div class="tileMeta">Public .chat portals (“stations”) where users arrive with intent.</div>
+              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Distribution</div>
+            </a>
+
+            <a class="tile" href="https://domainelevation.com/diagnostic/" rel="noopener" aria-label="Domain Diagnostic">
+              <div class="tileName">Domain Diagnostic™</div>
+              <div class="tileMeta">Structured alignment assessment used to guide review.</div>
+              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Signals</div>
+            </a>
+
+            <a class="tile" href="https://domainelevation.com/" rel="noopener" aria-label="DomainElevation">
+              <div class="tileName">DomainElevation</div>
+              <div class="tileMeta">Structural naming risk, constraints, and long-horizon stewardship.</div>
+              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Research</div>
+            </a>
+
+            <a class="tile" href="mailto:contact@assetsnow.com" aria-label="AssetsNow">
+              <div class="tileName">AssetsNow</div>
+              <div class="tileMeta">Private holdings and qualified counterpart introductions.</div>
+              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Holdings</div>
+            </a>
+          </div>
+
+          <div class="fineprint">
+            AgentPowered is the “behind-the-scenes” operator layer — the parts that must stay consistent as the network scales.
+          </div>
+        </section>
+
+        <!-- RIGHT -->
+        <aside class="panel side" aria-label="Contact and access">
+          <div class="panelTitle">Access</div>
+
+          <p>
+            If you’re building an agent that should live inside a station, request a partner slot.
+            If you’re an operator, request a runtime / governance brief.
+          </p>
+
+          <div class="ctaRow" aria-label="Primary actions">
+            <a class="btn primary" href="#request">Request access →</a>
+            <a class="btn" href="mailto:contact@assetsnow.com">Email →</a>
+          </div>
+
+          <div class="fineprint">
+            Qualified counterparties only · policy-first · NDA available upon request.
+          </div>
+
+          <div class="divider" role="separator" aria-hidden="true"></div>
+
+          <div class="panelTitle" id="request">Request access (confidential)</div>
+
+          <!-- Formspree: replace YOUR_FORM_ID + thanks URL -->
+          <form id="ap-form" class="intake" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+            <input name="name" required placeholder="Full name" autocomplete="name" />
+            <input name="company" placeholder="Company / org" autocomplete="organization" />
+            <input name="email" type="email" required placeholder="Email" autocomplete="email" />
+            <select name="interest" required>
+              <option value="" disabled selected>Interest</option>
+              <option>Partner agent inside a station</option>
+              <option>Operate a station / portal</option>
+              <option>Governance / runtime brief</option>
+              <option>Other</option>
+            </select>
+            <textarea name="message" required placeholder="Context (use-case, authority, timeline)"></textarea>
+
+            <!-- Tracking -->
+            <input type="hidden" name="landing_url" />
+            <input type="hidden" name="referrer" />
+            <input type="hidden" name="user_agent" />
+            <input type="hidden" name="timezone" />
+            <input type="hidden" name="language" />
+
+            <input type="hidden" name="_subject" value="AgentPowered — Access Request" />
+            <input type="text" name="_gotcha" style="display:none" />
+
+            <button class="btn primary" type="submit">Submit request</button>
+            <div class="status" id="status" aria-live="polite"></div>
+          </form>
+
+          <div class="fineprint">
+            This page is intentionally minimal. The work happens in the runtime.
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        AgentPowered · the operator layer behind portals · policy-first execution
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById("ap-form");
+      const status = document.getElementById("status");
+      if (!form) return;
+
+      // Fill tracking fields
+      const setVal = (name, value) => {
+        const el = form.querySelector(`[name="${name}"]`);
+        if (el) el.value = value || "";
+      };
+
+      setVal("landing_url", location.href);
+      setVal("referrer", document.referrer || "");
+      setVal("user_agent", navigator.userAgent || "");
+      setVal("timezone", Intl.DateTimeFormat().resolvedOptions().timeZone || "");
+      setVal("language", navigator.language || "");
+
+      // AJAX submit (consistent with your other pages)
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (status) status.textContent = "Sending…";
+
+        try{
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!res.ok) throw new Error("Bad response");
+
+          if (status) status.textContent = "Sent.";
+          form.reset();
+
+          // Optional: redirect if you create /thanks.html
+          // window.location.href = "https://agentpowered.com/thanks.html";
+
+        } catch (err){
+          if (status) status.textContent = "Couldn’t send right now. Please email contact@assetsnow.com.";
+          console.error("Form submit failed:", err);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

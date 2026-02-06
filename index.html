@@ -225,6 +225,84 @@
       margin-bottom: 12px;
     }
 
+    .sys{ display:grid; gap:12px; }
+
+.sys p{ color: var(--ap-muted); font-size: 13.5px; line-height: 1.7; }
+
+.sysBlock{
+  border: 1px solid rgba(242,244,248,.10);
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+  padding: 12px;
+}
+
+.sysSub{
+  margin-top: 10px;
+  border-top: 1px solid rgba(242,244,248,.10);
+  padding-top: 10px;
+}
+
+.sysHead{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  font-weight: 650;
+  letter-spacing: .01em;
+  font-size: 13.5px;
+  margin-bottom: 6px;
+}
+
+.sysTag{
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ap-muted2);
+  border: 1px solid rgba(242,244,248,.12);
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.02);
+  white-space: nowrap;
+}
+
+.sysList{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--ap-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  color: var(--ap-ink);
+}
+
+.sysNote{ margin-top: 8px; color: var(--ap-muted2); font-size: 12.5px; }
+
+.sysFooter{
+  margin-top: 2px;
+  color: var(--ap-muted);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+    
+    .linkBlock{
+  display:block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.linkBlock:hover{
+  border-color: rgba(122,76,255,.35);
+  background: rgba(122,76,255,.04);
+}
+
+.linkBlock:hover .sysHead{
+  color: var(--ap-ink);
+}
+    
     .bullets{
       margin: 0;
       padding-left: 18px;
@@ -449,36 +527,79 @@
           <div class="divider" role="separator" aria-hidden="true"></div>
 
           <div class="panelTitle">Active surfaces</div>
-          <div class="tiles" aria-label="Portfolio tiles">
-            <a class="tile" href="https://chatsurface.com/" rel="noopener" aria-label="ChatSurface">
-              <div class="tileName">ChatSurface</div>
-              <div class="tileMeta">Public .chat portals (“stations”) where users arrive with intent and meet agent workflows.</div>
-              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Distribution</div>
-            </a>
 
-            <a class="tile" href="https://domainelevation.com/diagnostic/" rel="noopener" aria-label="Domain Diagnostic">
-              <div class="tileName">Domain Diagnostic™</div>
-              <div class="tileMeta">Structured evaluation framework for alignment, risk, and decision quality.</div>
-              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Signals</div>
-            </a>
+<div class="sys" aria-label="System architecture">
+  <p>
+    <strong>AgentPowered</strong> operates as the execution layer that connects ownership,
+    evaluation, and distribution into a single, governed system.
+  </p>
 
-            <a class="tile" href="https://domainelevation.com/" rel="noopener" aria-label="DomainElevation">
-              <div class="tileName">DomainElevation</div>
-              <div class="tileMeta">Structural naming risk, constraints, and long-horizon stewardship.</div>
-              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Stewardship</div>
-            </a>
+  <a class="sysBlock linkBlock" href="https://assetsnow.com/" rel="noopener">
+    <div class="sysHead">
+      <span>AssetsNow</span>
+      <span class="sysTag">ownership &amp; capital</span>
+    </div>
+    <p>
+      Anchors the system at the capital layer — holding strategic assets and managing
+      qualified access to ownership, partnerships, and introductions.
+    </p>
+  </a>
 
-            <a class="tile" href="mailto:contact@assetsnow.com" aria-label="AssetsNow">
-              <div class="tileName">AssetsNow</div>
-              <div class="tileMeta">Private holdings and relationship-led capital access.</div>
-              <div class="badge"><span class="badgeDot" aria-hidden="true"></span>Holdings</div>
-            </a>
-          </div>
+  <a class="sysBlock linkBlock" href="https://domainelevation.com/" rel="noopener">
+    <div class="sysHead">
+      <span>DomainElevation</span>
+      <span class="sysTag">evaluation &amp; authority</span>
+    </div>
+    <p>
+      Functions as the evaluation and authority layer — assessing structural naming risk,
+      constraints, and long-horizon alignment before decisions harden.
+    </p>
 
-          <div class="fineprint">
-            AgentPowered is the “behind-the-scenes” operator layer — the parts that must stay consistent as the network scales.
-          </div>
-        </section>
+    <div class="sysSub">
+      <div class="sysHead">
+        <span>Domain Diagnostic™</span>
+        <span class="sysTag">alignment signal</span>
+      </div>
+      <p>
+        A structured evaluation framework used to guide review without exposing
+        internal mechanics.
+      </p>
+    </div>
+  </a>
+
+  <a class="sysBlock linkBlock" href="https://chatsurface.com/" rel="noopener">
+    <div class="sysHead">
+      <span>ChatSurface</span>
+      <span class="sysTag">distribution &amp; portals</span>
+    </div>
+    <p>
+      Forms the distribution layer — a network of public, domain-native portals (“stations”)
+      where users arrive with intent and interact with compliant agent workflows.
+    </p>
+
+    <ul class="sysList">
+      <li><span class="mono">support.chat</span> — support routing &amp; escalation</li>
+      <li><span class="mono">refund.chat</span> — eligibility &amp; documentation capture</li>
+      <li><span class="mono">negotiate.chat</span> — capture constraints &amp; close cleanly</li>
+    </ul>
+
+    <p class="sysNote">
+      Individual stations may host one or more agents under shared routing,
+      policy, and audit standards.
+    </p>
+  </a>
+
+  <p class="sysFooter">
+    <strong>System flow:</strong> capital → evaluation → distribution —
+    governed consistently and designed to scale without rebranding.
+  </p>
+</div>
+
+<div class="fineprint">
+  AgentPowered is the “behind-the-scenes” operator layer — the parts that must stay
+  consistent as the network scales.
+</div>
+    </section>
 
         <!-- RIGHT -->
         <aside class="panel side" aria-label="Contact and access" id="contact">

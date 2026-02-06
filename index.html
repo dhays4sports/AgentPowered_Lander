@@ -50,6 +50,8 @@
 
     *{ box-sizing:border-box; margin:0; padding:0; }
     html, body{ width:100%; overflow-x:hidden; }
+    html{ scroll-behavior:smooth; }
+
     body{
       background:
         radial-gradient(1100px 600px at 50% 0%, var(--ap-accent-soft), transparent 60%),
@@ -92,11 +94,19 @@
       transform: translateY(-1px);
     }
 
-    nav{
+    /* ===== Nav (fixed for Option A) ===== */
+    .topnav{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .navlinks{
       display:flex;
       gap:14px;
       flex-wrap:wrap;
       justify-content:flex-end;
+      align-items:center;
     }
 
     .navlink{
@@ -109,6 +119,21 @@
       border: 1px solid transparent;
     }
     .navlink:hover{ border-color: var(--ap-line); color: var(--ap-muted); }
+
+    /* Single-action mobile CTA */
+    .navCta{
+      display:none;
+      font-size:12px;
+      letter-spacing: var(--track);
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,244,248,.14);
+      background: rgba(255,255,255,.02);
+      color: var(--ap-ink);
+      white-space:nowrap;
+    }
+    .navCta:hover{ border-color: rgba(122,76,255,.35); }
 
     .hero{
       margin-top: 12px;
@@ -308,6 +333,23 @@
       outline: none;
     }
     .intake textarea{ min-height: 90px; resize: vertical; }
+
+    /* Make the select readable across browsers */
+    .intake select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      padding-right: 40px;
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(242,244,248,.60) 50%),
+        linear-gradient(135deg, rgba(242,244,248,.60) 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) 50%,
+        calc(100% - 12px) 50%;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat:no-repeat;
+    }
+
     .intake input:focus,
     .intake textarea:focus,
     .intake select:focus{
@@ -348,6 +390,10 @@
     }
 
     @media (max-width: 860px){
+      /* Option A: hide links, show single CTA */
+      .navlinks{ display:none; }
+      .navCta{ display:inline-flex; }
+
       .rail{ grid-template-columns: 1fr; }
       .tiles{ grid-template-columns: 1fr; }
     }
@@ -367,14 +413,14 @@
       </a>
 
       <nav class="topnav" aria-label="AgentPowered navigation">
-  <div class="navlinks">
-    <a class="navlink" href="/chatsurface/">ChatSurface</a>
-    <a class="navlink" href="/domainelevation/">DomainElevation</a>
-    <a class="navlink" href="#contact">Contact</a>
-  </div>
+        <div class="navlinks">
+          <a class="navlink" href="/chatsurface/">ChatSurface</a>
+          <a class="navlink" href="/domainelevation/">DomainElevation</a>
+          <a class="navlink" href="#contact">Contact</a>
+        </div>
 
-  <a class="navCta" href="#contact">Access →</a>
-</nav>
+        <a class="navCta" href="#contact">Access →</a>
+      </nav>
     </header>
 
     <main class="hero" role="main">
@@ -435,7 +481,7 @@
         </section>
 
         <!-- RIGHT -->
-        <aside class="panel side" aria-label="Contact and access">
+        <aside class="panel side" aria-label="Contact and access" id="contact">
           <div class="panelTitle">Access</div>
 
           <p>
@@ -456,7 +502,7 @@
 
           <div class="panelTitle" id="request">Request access (confidential)</div>
 
-          <!-- Formspree: replace YOUR_FORM_ID + thanks URL -->
+          <!-- Formspree: replace YOUR_FORM_ID -->
           <form id="ap-form" class="intake" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
             <input name="name" required placeholder="Full name" autocomplete="name" />
             <input name="company" placeholder="Company / org" autocomplete="organization" />
@@ -502,7 +548,6 @@
       const status = document.getElementById("status");
       if (!form) return;
 
-      // Fill tracking fields
       const setVal = (name, value) => {
         const el = form.querySelector(`[name="${name}"]`);
         if (el) el.value = value || "";
@@ -514,7 +559,6 @@
       setVal("timezone", Intl.DateTimeFormat().resolvedOptions().timeZone || "");
       setVal("language", navigator.language || "");
 
-      // AJAX submit (consistent with your other pages)
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (status) status.textContent = "Sending…";
@@ -531,7 +575,7 @@
           if (status) status.textContent = "Sent.";
           form.reset();
 
-          // Optional: redirect if you create /thanks.html
+          // Optional redirect
           // window.location.href = "https://agentpowered.com/thanks.html";
 
         } catch (err){
